@@ -30,7 +30,7 @@ export default memo(function Totop() {
       }}
       title="回到顶部"
     >
-      回到顶部
+      Top
     </TopBox>
   );
 });
