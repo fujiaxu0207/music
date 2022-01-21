@@ -6,7 +6,7 @@ import {
 } from 'antd';
 import {SearchOutlined} from '@ant-design/icons';
 
-import ToTop from '@/pages/discover/toTop';
+
 
 export default memo(function Header() {
   return (
@@ -38,7 +38,6 @@ export default memo(function Header() {
         </HeaderRight>
       </div>
       <div className="divider"></div>
-      <ToTop/>
     </HeaderWrapper>
   );
 });
