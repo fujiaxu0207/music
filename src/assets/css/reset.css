@@ -455,6 +455,10 @@ button {
   background: url(../img/sprite_02.png) no-repeat 0 9999px;
 }
 
+.sprite_03 {
+  background: url(../img/sprite_03.png) no-repeat 0 9999px;
+}
+
 .sprite_covor {
   background: url(../img/sprite_cover.png) no-repeat 0 9999px;
 }
@@ -487,4 +491,7 @@ button {
   bottom: 0;
   text-indent: -9999px;
   background: url(../img/sprite_cover.png) no-repeat -145px -57px;
+}
+body {
+  height: 1000px;
 }
