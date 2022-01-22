@@ -18,9 +18,10 @@ export const HeaderWrapper = styled.div`
 `;
 export const HeaderLeft = styled.div`
   display: flex;
+
   .logo a {
     display: block;
-    width: 157px;
+    width: 177px;
     height: 100%;
     padding: 0 20px 0 0;
     background-position: 0 0;
@@ -63,7 +64,8 @@ export const HeaderLeft = styled.div`
       height: 7px;
       transform: translateX(-50%);
       background-image: url(${sprite_01});
-      background-position: -226px 0;
+      background-size: 120px auto;
+      background-position: -105px -70px;
     }
   }
 `;

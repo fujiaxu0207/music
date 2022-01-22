@@ -1,23 +1,30 @@
 import React, { memo } from "react";
-import { NavLink, Route, Switch, Redirect } from "react-router-dom";
+import { NavLink, Redirect, Route, Switch } from "react-router-dom";
 
-import ToTop from "@/pages/discover/toTop";
 import Recommend from "./recommend";
+import ToTop from "@/pages/discover/toTop";
+import { NavWrapper } from "./style";
 
 export default memo(function Discover() {
   return (
-    <div>
-      <div>
-        <NavLink to={"/discover/recommend"}>推荐</NavLink>
-        <NavLink to={"/discover/recommend"}>排行榜</NavLink>
-        <NavLink to={"/discover/recommend"}>歌单</NavLink>
-        <NavLink to={"/discover/recommend"}>歌手</NavLink>
-        <NavLink to={"/discover/recommend"}>新碟上架</NavLink>
-      </div>
+    <>
+      <NavWrapper>
+        <div className="nav-wraper wrap-v1">
+          <div className="nav">
+            <NavLink to={"/discover/recommend"}>推荐</NavLink>
+            <NavLink to={"/discover/rank"}>排行榜</NavLink>
+            <NavLink to={"/discover/t"}>歌单</NavLink>
+            <NavLink to={"/discover/b"}>主播电台</NavLink>
+            <NavLink to={"/discover/singer"}>歌手</NavLink>
+            <NavLink to={"/discover/new"}>新碟上架</NavLink>
+          </div>
+        </div>
+      </NavWrapper>
       <Switch>
         <Route path={"/discover/recommend"} component={Recommend}></Route>
+        <Redirect  to={"/discover/recommend"}></Redirect>
       </Switch>
       <ToTop />
-    </div>
+    </>
   );
 });
