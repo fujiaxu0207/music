@@ -1,10 +1,13 @@
-import React, { memo, useEffect } from 'react';
-import {getTopBanner} from '@/service/recommend.js';
+import React, { memo, useEffect } from "react";
+
+import TopBanner from "./topBanner";
+import RmdContent from "./rmdContent";
+
 export default memo(function Recommend() {
-    useEffect(()=>{
-        getTopBanner().then(res=>{
-            console.log(res);
-        })
-    })
-  return <div>123weadasd</div>;
+    return (
+        <>
+            <TopBanner></TopBanner>
+            <RmdContent></RmdContent>
+        </>
+    );
 });
