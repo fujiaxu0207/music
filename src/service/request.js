@@ -6,7 +6,6 @@ const instance = axios.create({
   baseURL: BASE_URL,
   timeout: TIMEOUT
 });
-
 instance.interceptors.request.use(config => {
   // 1.发送网络请求时, 在界面的中间位置显示Loading的组件
 

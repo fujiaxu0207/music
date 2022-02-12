@@ -4,4 +4,4 @@ const  reducer = combineReducers({
     recommend:recommendReducer
 });
 
-export default reducer;
+export default reducer;  
