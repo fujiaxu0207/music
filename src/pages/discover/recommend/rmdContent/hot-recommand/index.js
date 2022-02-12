@@ -1,41 +1,45 @@
-import React, { memo,useEffect } from 'react'
+import React, { memo, useEffect } from "react";
 
-import {connect} from 'react-redux'
-import {getHotRecommendAction} from '@/store/recommend/actionCreators'
+import { connect } from "react-redux";
+import { getHotRecommendAction } from "@/store/recommend/actionCreators";
 
-import RcmdThemeHeader from '@/components/rcm-theme-header';
+import RcmdThemeHeader from "@/components/rcm-theme-header";
 
-import {HotRecommendWrapper} from './style';
+import { HotRecommendWrapper } from "./style";
 
-const HotRecommend = function(props) {
-  const keywords = ["华语","流行", "摇滚"," 民谣", "电子"];
-  const {getRecommends,HotRecommends} = props;
-  console.log(HotRecommends);
-  useEffect(()=>{
-    getRecommends();
-  },[getRecommends])
-  return (
-    <HotRecommendWrapper>
-        <RcmdThemeHeader title={"热门推荐"} keywords={keywords}></RcmdThemeHeader>
-        <div className="recommand-list">
-          {/* {HotRecommends.map((item)=>{
-            return (
-              <div>{item.name}</div>
-            )
-          })} */}
-        </div>
-    </HotRecommendWrapper>
-  )
-}
+const HotRecommend = function (props) {
+    const keywords = ["华语", "流行", "摇滚", " 民谣", "电子"];
+    const { getRecommends, hotRecommends = [] } = props;
+    useEffect(() => {
+        getRecommends();
+    }, [getRecommends]);
+    return (
+        <HotRecommendWrapper>
+            <RcmdThemeHeader
+                title={"热门推荐"}
+                keywords={keywords}
+            ></RcmdThemeHeader>
+            <div className="recommand-list">
+                {/* {hotRecommends.map((item) => {
+                    return <div key={item.id} style={width}>{item.name}</div>;
+                })} */}
+            </div>
+            <RcmdThemeHeader title={"新碟上架"}></RcmdThemeHeader>
+            <RcmdThemeHeader title={"榜单"}></RcmdThemeHeader>
+        </HotRecommendWrapper>
+    );
+};
 
-export default memo(connect(
-  (store)=>{
-    return {HotRecommends:store.recommend.HotRecommends}
-  },
-  (dispatch)=>{
-    return {
-      getRecommends: ()=>dispatch(getHotRecommendAction(8))
-    }
-  }
-)(HotRecommend)
+export default memo(
+    connect(
+        (store) => {
+            // console.log(store.recommend.hotRecommends);
+            return { hotRecommends: store.recommend.hotRecommends };
+        },
+        (dispatch) => {
+            return {
+                getRecommends: () => dispatch(getHotRecommendAction(8)),
+            };
+        }
+    )(HotRecommend)
 );

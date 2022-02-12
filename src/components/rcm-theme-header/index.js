@@ -34,7 +34,7 @@ RcmdThemeHeader.propTypes = {
     keywords: PropTypes.array,
 };
 RcmdThemeHeader.defaultProps = {
-    keyword: [],
+    keywords: [],
 };
 
 export default RcmdThemeHeader;

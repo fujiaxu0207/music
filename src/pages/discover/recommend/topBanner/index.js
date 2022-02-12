@@ -84,7 +84,7 @@ export default memo(
             topBanners: store.recommend.topBanners,
         }),
         (dispatch) => ({
-            getBanners: () => dispatch(getTopBannerAction()),// 只要8条数据
+            getBanners: () => dispatch(getTopBannerAction()),
         })
     )(TopBanner)
 );
