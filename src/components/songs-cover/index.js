@@ -8,8 +8,8 @@ const SongsCover = memo((props) => {
         <SongsCoverWrapper>
             <div className="cover-top">
                 <img src={info.picUrl} alt={info.name} />
-                <div className="cover sprite_covor">
-                    <div className="info sprite_covor">
+                <div className="cover sprite_cover">
+                    <div className="info sprite_cover">
                         <span>
                             <i className="sprite_icon erji"></i>
                             {getCount(info.playCount)}
