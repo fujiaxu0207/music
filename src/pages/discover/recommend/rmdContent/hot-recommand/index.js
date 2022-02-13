@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { getHotRecommendAction } from "@/store/recommend/actionCreators";
 
 import RcmdThemeHeader from "@/components/rcm-theme-header";
+import SongsCover from "@/components/songs-cover";
 
 import { HotRecommendWrapper } from "./style";
 
@@ -20,9 +21,9 @@ const HotRecommend = function (props) {
                 keywords={keywords}
             ></RcmdThemeHeader>
             <div className="recommand-list">
-                {/* {hotRecommends.map((item) => {
-                    return <div key={item.id} style={width}>{item.name}</div>;
-                })} */}
+                {hotRecommends.map((item) => {
+                    return <SongsCover key={item.id} info={item}/>
+                })}
             </div>
             <RcmdThemeHeader title={"新碟上架"}></RcmdThemeHeader>
             <RcmdThemeHeader title={"榜单"}></RcmdThemeHeader>

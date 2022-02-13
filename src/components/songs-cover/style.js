@@ -1,9 +1,8 @@
-import styled from "styled-componets";
+import styled from "styled-components";
 
 export const SongsCoverWrapper = styled.div`
     width: 140px;
-    margin: 20px ${(props) => props.right || 0} 20px 0;
-
+    height: 204px;
     .cover-top {
         position: relative;
 
@@ -32,7 +31,7 @@ export const SongsCoverWrapper = styled.div`
                 background-position: 0 -537px;
                 color: #ccc;
                 height: 27px;
-
+                background-color: rgba(0,0,0,0.5);
                 .erji {
                     margin-right: 5px;
                     display: inline-block;
