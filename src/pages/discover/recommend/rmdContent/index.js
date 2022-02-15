@@ -2,7 +2,7 @@ import React, { memo } from "react";
 
 import HotRecommand from './hot-recommand';
 import NewAlbums from './new-albums';
-import Ranking from './ranking';
+import Ranking from './recommend-ranking';
 import { RmdContentWrapper, RecommendLeft,RecommendRight } from "./style";
 
 export default memo(function RmdContent() {

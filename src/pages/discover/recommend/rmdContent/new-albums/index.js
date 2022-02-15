@@ -12,7 +12,7 @@ import { NewAlbumsWrapper } from "./style";
 const NewAlbums = memo(() => {
     /* hooks是在太好用了 */
     const dispatch = useDispatch();
-    const { newAlbums } = useSelector(
+    const { newAlbums = [] } = useSelector(
         (state) => ({
             newAlbums: state.recommend.newAlbums,
         }),

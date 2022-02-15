@@ -2,7 +2,7 @@ import axios from "./request";
 
 export const getTopBanner = () =>
     axios({
-        url: "banner",
+        url: "/banner",
     });
 
 export function getHotRecommends(limit) {
@@ -19,6 +19,23 @@ export function getNewAlbums(limit) {
         url: "/album/new",
         params: {
             limit,
+        },
+    });
+}
+
+// 获取排行榜歌单
+export function getTopList() {
+    return axios({
+        url: "/toplist",
+    });
+}
+
+// 获取某个歌单的详细信息
+export function getPlayListDetail(id) {
+    return axios({
+        url: "/playlist/detail",
+        params: {
+            id
         },
     });
 }

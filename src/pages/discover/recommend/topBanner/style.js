@@ -13,7 +13,6 @@ export const BannerContent = styled.div`
     position: relative; // 为了两个箭头的决定定位
     display: flex;
     height: 270px;
-    background-color: red;
     margin: 0 auto;
     .swiper-arrow {
         position: absolute;

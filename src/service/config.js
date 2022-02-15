@@ -1,5 +1,6 @@
-const devBaseURL = "http://localhost:4000";
-const proBaseURL = "http://localhost:4000";
+const devBaseURL = "https://netease-cloud-music-api-pi-sandy.vercel.app";
+
+const proBaseURL = "https://netease-cloud-music-api-pi-sandy.vercel.app";
 
 export const BASE_URL = process.env.NODE_ENV === 'development' ? devBaseURL: proBaseURL;
 
