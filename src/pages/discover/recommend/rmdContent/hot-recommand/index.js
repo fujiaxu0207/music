@@ -25,8 +25,7 @@ const HotRecommend = function (props) {
                     return <SongsCover key={item.id} info={item}/>
                 })}
             </div>
-            <RcmdThemeHeader title={"新碟上架"}></RcmdThemeHeader>
-            <RcmdThemeHeader title={"榜单"}></RcmdThemeHeader>
+            {/* <RcmdThemeHeader title={"榜单"}></RcmdThemeHeader> */}
         </HotRecommendWrapper>
     );
 };

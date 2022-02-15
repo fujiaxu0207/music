@@ -1,6 +1,10 @@
 import * as actionTypes from "./constants";
 
-import { getTopBanner, getHotRecommends } from "@/service/recommend";
+import {
+    getTopBanner,
+    getHotRecommends,
+    getNewAlbums,
+} from "@/service/recommend";
 
 export const changeTopBannerAction = (res) => ({
     type: actionTypes.CHANGE_TOP_BANNERS,
@@ -12,6 +16,13 @@ export const changeHotRecommendAction = (res) => ({
     hotRecommends: res.result,
 });
 
+export const changeNewAlbumsAction = (res) => ({
+    type: actionTypes.CHANGE_NEW_ALBUM,
+    newAlbums: res.albums,
+});
+
+
+/* 在redux使用中间件，发送网络请求 */
 export const getTopBannerAction = () => {
     /* dispath，若是一个函数，则会传入dispatch*/
     return (dispatch) => {
@@ -25,6 +36,14 @@ export const getHotRecommendAction = (limit) => {
     return (dispatch) => {
         getHotRecommends(limit).then((res) => {
             dispatch(changeHotRecommendAction(res));
+        });
+    };
+};
+
+export const getNewAlbumsAction = (limit) => {
+    return (dispatch) => {
+        getNewAlbums(limit).then((res) => {
+            dispatch(changeNewAlbumsAction(res));
         });
     };
 };
