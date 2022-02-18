@@ -36,6 +36,7 @@ export const Control = styled.div`
         height: 36px;
         margin: 0 8px;
         cursor: pointer;
+        /* 听过props的isPlaying 来判断当前播放的精灵图的背景位置 */
         background-position: 0
             ${(props) => (props.isPlaying ? "-165px" : "-204px")};
     }
