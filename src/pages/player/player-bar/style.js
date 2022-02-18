@@ -67,8 +67,8 @@ export const PlayInfo = styled.div`
             text-indent: -9999px;
         }
         img {
-                width: 100%;
-            }
+            width: 100%;
+        }
     }
 
     .info {
@@ -150,6 +150,7 @@ export const Operator = styled.div`
     }
 
     .right {
+        display: flex;
         width: 126px;
         padding-left: 13px;
         background-position: -147px -248px;
@@ -160,6 +161,8 @@ export const Operator = styled.div`
 
         .loop {
             background-position: ${(props) => {
+                // console.log(props.sequence);
+
                 switch (props.sequence) {
                     case 1:
                         return "-66px -248px";
@@ -172,6 +175,8 @@ export const Operator = styled.div`
         }
         .playlist {
             width: 59px;
+            color: #666;
+            text-indent: 25px;
             background-position: -42px -68px;
         }
     }

@@ -20,6 +20,7 @@ export default memo(function Discover() {
           </div>
         </div>
       </NavWrapper>
+      {/* 会按照定义的顺序一个Switch，一个的比较 */}
       <Switch>
         <Route path={"/discover/recommend"} component={Recommend}></Route>
         <Redirect  to={"/discover/recommend"}></Redirect>

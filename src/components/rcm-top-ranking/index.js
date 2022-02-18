@@ -2,12 +2,22 @@
 该组件是recommend排行榜中的一列组件
 */
 import React, { memo } from "react";
+
+import { useDispatch } from "react-redux";
+
+
 import { Link } from "react-router-dom";
+
+import {getSongDetailAction} from '@/store/player/actionCreators'
 
 import { RcmTopRankingWrapper } from "./style";
 const RcmTopRanking = memo((props) => {
     const { info = {} } = props;
     // console.log(props);
+    const dispatch =  useDispatch();
+    const playMusic = (item) => {
+        dispatch(getSongDetailAction(item.id));
+    };
     return (
         <RcmTopRankingWrapper>
             <div className="header">
@@ -30,16 +40,21 @@ const RcmTopRanking = memo((props) => {
                     return (
                         <div key={item.id} className="list-item">
                             <div className="rank">{index + 1}</div>
-                            <Link className="info" to={`/song?id=${info.id}`}>
-                                <span className="name text-nowrap">
+                            <div className="info">
+                                <Link className="name text-nowrap" to={`/song?id=${info.id}`}>
                                     {item.name}
-                                </span>
+                                </Link>
                                 <div className="operate">
-                                    <button className="btn sprite_02 play"></button>
+                                    <button
+                                        className="btn sprite_02 play"
+                                        onClick={(e) => {
+                                            playMusic(item);
+                                        }}
+                                    ></button>
                                     <button className="btn sprite_icon2 addto"></button>
                                     <button className="btn sprite_02 favor"></button>
                                 </div>
-                            </Link>
+                            </div>
                         </div>
                     );
                 })}
