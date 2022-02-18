@@ -5,9 +5,10 @@ import 'antd/dist/antd.css';
 import Footer from "components/Footer";
 import Header from "components/Header";
 import Discover from "@/pages/discover";
-import Recommend from "@/pages/discover/recommend";
+// import Recommend from "@/pages/discover/recommend";
 import Mine from "@/pages/mine";
 import Friend from "@/pages/friend";
+import PlayBar from "@/pages/player/player-bar";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         {/* 重定向这里可以注意下 */}
         <Redirect to={"/discover/recommend"}></Redirect>
       </Switch>
+      <PlayBar/>
       <Footer />
     </Fragment>
   );

@@ -1,7 +1,10 @@
-import {combineReducers} from 'redux';
-import recommendReducer from './recommend';
-const  reducer = combineReducers({
-    recommend:recommendReducer
-});
+import { combineReducers } from "redux";
+import recommendReducer from "./recommend";
+import playerReducer from "./player";
 
-export default reducer;  
+/* 合并reducer */
+const reducer = combineReducers({
+    recommend: recommendReducer,
+    player: playerReducer,
+});
+export default reducer;

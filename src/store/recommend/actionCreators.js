@@ -54,7 +54,7 @@ export const getHotRecommendAction = (limit) => {
     };
 };
 
-// 获取新歌版单
+// 获取新歌歌单
 export const getNewAlbumsAction = (limit) => {
     return (dispatch) => {
         getNewAlbums(limit).then((res) => {
