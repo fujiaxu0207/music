@@ -62,6 +62,7 @@ const PlayBar = memo(() => {
         audioRef.current.src = getPlaySong(currentSong.id);
         // 第一次播放会发生错误，play是一个promise，也可以使用一个state来保存是否为第一次
         // 第一次进入就不自动播放，当currentSong发送改变时，那么就自动播放
+        // 当currentsong发送变化时，就自动播放
         audioRef.current
             .play()
             .then((res) => {

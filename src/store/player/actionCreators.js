@@ -36,7 +36,35 @@ export const changLyricListIndexAction = (index) => ({
     type: actionTypes.CHANGE_CURRENT_LYRIC_INDEX,
     index,
 });
+/**
+ *
+ * @param {number} id 需要添加的歌曲,值为id
+ */
+export const addSongToPlayListAction = (id) => {
+    console.log(123);
+    return (dispatch, getState) => {
+        // 1.根据id判断playList中是否已经存在该歌曲
+        const playList = getState().player.playList || [];
 
+        const songIndex = playList.findIndex((item) => item.id === id);
+
+        // 2.判断是否找到歌曲
+        let song = null;
+        if (songIndex === -1) {
+            getSongDetail(id).then((res) => {
+                song = res.songs && res.songs[0];
+                // console.log(song);
+                if (!song) return;
+                // 1.将最新请求到的歌曲添加到播放列表中
+                const newPlayList = [...playList];
+                newPlayList.push(song);
+                // console.log(newPlayList);
+                // 2.更新redux中的值
+                dispatch(changePlayListAction(newPlayList));
+            });
+        }
+    };
+};
 
 // 在播放器中切换当前播放的音乐，因为设计到较多的redux相关的东西
 // 故将其放在此处
