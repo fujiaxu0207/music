@@ -1,6 +1,7 @@
 import * as actionTypes from "./contants";
 import { getSongDetail, getLyric } from "../../service/play";
 import { getRandomNumber } from "@/utils/math-utils";
+import { parseLyric } from "@/utils/parse-lyric";
 
 // 改变当前播放的歌曲
 export const changeCurrentSongAction = (song) => ({
@@ -24,11 +25,18 @@ export const changeSequenceAction = (sequence) => ({
     type: actionTypes.CHANGE_SEQUENCE,
     sequence: sequence,
 });
-
+// 改变当前播放歌曲的歌词
 export const changLyricListAction = (lyricList) => ({
     type: actionTypes.CHANGE_LYRIC_LIST,
     lyricList,
 });
+
+// 改变当前播放歌曲的歌词的下标，因为别的地方可能会用到
+export const changLyricListIndexAction = (index) => ({
+    type: actionTypes.CHANGE_CURRENT_LYRIC_INDEX,
+    index,
+});
+
 
 // 在播放器中切换当前播放的音乐，因为设计到较多的redux相关的东西
 // 故将其放在此处
@@ -59,6 +67,9 @@ export const changeCurrentIndexAndSongAction = (tag) => {
         const currentSong = playList[currentSongIndex];
         dispatch(changeCurrentSongAction(currentSong));
         dispatch(changeCurrentSongIndexAction(currentSongIndex));
+
+        // 请求歌词
+        dispatch(getLyricAction(currentSong.id));
     };
 };
 
@@ -80,7 +91,7 @@ export const getSongDetailAction = (ids) => {
             dispatch(changeCurrentSongIndexAction(songIndex));
             song = playList[songIndex];
             dispatch(changeCurrentSongAction(song));
-            // dispatch(getLyricAction(song.id));
+            dispatch(getLyricAction(song.id));
         } else {
             // 没有找到歌曲
             // 请求歌曲数据
@@ -98,8 +109,8 @@ export const getSongDetailAction = (ids) => {
                 dispatch(changeCurrentSongIndexAction(newPlayList.length - 1));
                 dispatch(changeCurrentSongAction(song));
 
-                // // 3.请求歌词
-                // dispatch(getLyricAction(song.id));
+                // 3.请求歌词
+                dispatch(getLyricAction(song.id));
             });
         }
         // getSongDetail(ids).then((res) => {
@@ -112,7 +123,8 @@ export const getSongDetailAction = (ids) => {
 export function getLyricAction(id) {
     return (dispatch) => {
         getLyric(id).then((res) => {
-            const lyric = res.lrc.lyric;
+            const lyric = res?.lrc?.lyric;
+            // console.log(lyric);
             const lyricList = parseLyric(lyric);
             dispatch(changLyricListAction(lyricList));
         });

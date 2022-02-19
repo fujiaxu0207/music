@@ -8,6 +8,7 @@ export const PlaybarWrapper = styled.div`
     background-position: 0 0;
     background-repeat: repeat;
     .content {
+        position: relative;/* 为了showPlayList定位准备 */
         display: flex;
         align-items: center;
         justify-content: space-between;

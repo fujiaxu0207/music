@@ -13,6 +13,8 @@ const initState = {
         每个数组是一个对象{时刻 毫秒，歌词}
     */
     lyricList: [],
+    // 歌词链表中，当前句的下标
+    lyricListIndex:0,
 };
 function reducer(state = initState, action) {
     switch (action.type) {
@@ -27,6 +29,11 @@ function reducer(state = initState, action) {
         // 改变播放顺序
         case actionTypes.CHANGE_SEQUENCE:
             return { ...state, sequence: action.sequence };
+        // 改变歌词
+        case actionTypes.CHANGE_LYRIC_LIST:
+            return {...state,lyricList:action.lyricList}
+        case actionTypes.CHANGE_CURRENT_LYRIC_INDEX:
+            return {...state,lyricListIndex:action.index}
         default:
             return state;
     }

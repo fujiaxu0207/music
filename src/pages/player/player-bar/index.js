@@ -5,14 +5,18 @@ import {
     getSongDetailAction,
     changeSequenceAction,
     changeCurrentIndexAndSongAction,
+    changLyricListIndexAction,
 } from "@/store/player/actionCreators";
 
-import { Slider } from "antd";
+import { Link } from "react-router-dom";
+
+import ShowPlayList from "./show-playList";
+
+import { Slider, message } from "antd";
 
 import { getTime, getPlaySong } from "@/utils/format-utils";
 
 import { PlaybarWrapper, Control, PlayInfo, Operator } from "./style";
-import { Link } from "react-router-dom";
 const PlayBar = memo(() => {
     // state and props
     // 当前播放时间, 毫秒
@@ -23,19 +27,25 @@ const PlayBar = memo(() => {
     const [isChanging, setIsChanging] = useState(false);
     // 当前是否在播放歌曲
     const [isPlaying, setIsPlaying] = useState(false);
-    // 是否循环播放
-    // const [isLoop, setIsLoop] = useState(false);
+    // playList 是否显示
+    const [isShow, setIsShow] = useState(false);
 
     // redux-hook
     const {
         currentSong = {},
+        currentSongIndex = 0,
         sequence = 0,
         playList = [],
+        lyricList = [],
+        lyricListIndex = 0,
     } = useSelector(
         (state) => ({
             currentSong: state.player.currentSong,
+            currentSongIndex: state.player.currentSongIndex,
             sequence: state.player.sequence,
             playList: state.player.playList,
+            lyricList: state.player.lyricList,
+            lyricListIndex: state.player.lyricListIndex,
         }),
         shallowEqual
     );
@@ -61,6 +71,10 @@ const PlayBar = memo(() => {
                 setIsPlaying(false);
             });
     }, [currentSong]);
+
+    useEffect(() => {
+        message.destroy();
+    }, []);
     // other hooks
 
     // 展示数据
@@ -88,13 +102,53 @@ const PlayBar = memo(() => {
         // 这样是不行的，因为 currentTime 还未来得及改变
         // setCurrentTime(e.target.currentTime * 1000);
         // setProgress(currentTime / duration * 100)
-        const currentTime = e.target.currentTime;
+        const currentTime = e.target.currentTime * 1000; // 单位是秒所以 * 1000
         if (!isChanging) {
-            setCurrentTime(currentTime * 1000);
-            setProgress(((currentTime * 1000) / duration) * 100);
+            setCurrentTime(currentTime);
+            setProgress((currentTime / duration) * 100);
         }
-        if (currentTime * 1000 >= duration) {
+        if (currentTime >= duration) {
             setIsPlaying(false);
+        }
+        // console.log(currentTime);
+        //匹配歌词
+        let i = 0;
+        // console.log(currentTime);
+        for (i; i < lyricList.length; i++) {
+            // 如果此时歌词的时间点小于播放的时间点，那么前一句就是的
+            // console.log(lyricList[i].time);
+            if (lyricList[i].time > currentTime) {
+                break;
+            }
+        }
+        // 得到当前歌词应该对应的下标，最后一句不需要的单独处理了
+        // 如果是最后一句，那么 i === length ，这里-1就好
+        i = i - 1 < 0 ? 0 : i - 1;
+        // console.log(i);
+        // 当playList没有显示时，立即调出歌词
+        if (!isShow) {
+            message.open({
+                key: "lyric",
+                content: lyricList[i]?.content,
+                duration: 0,
+                className: "lyric-class",
+            });
+        } else {
+            message.destroy();
+        }
+        if (i !== lyricListIndex || i === 0) {
+            dispatch(changLyricListIndexAction(i));
+            // console.log(lyricList[i].content);
+            if (lyricList[i]?.content && !isShow) {
+                message.open({
+                    key: "lyric",
+                    content: lyricList[i]?.content,
+                    duration: 0,
+                    className: "lyric-class",
+                });
+            } else {
+                message.destroy();
+            }
         }
     }
     // 传入回调函数，使用useCallBback记忆函数，繁殖组件不必要的更新
@@ -129,7 +183,7 @@ const PlayBar = memo(() => {
     };
     // 上/下一首
     const changeMusic = (tag) => {
-        console.log(1);
+        // console.log(1);
         dispatch(changeCurrentIndexAndSongAction(tag));
     };
 
@@ -150,6 +204,9 @@ const PlayBar = memo(() => {
         }
     };
 
+    const changeIsShow = useCallback(() => {
+        setIsShow(!isShow);
+    }, [isShow]);
     return (
         <PlaybarWrapper className="sprite_player wrap-v1">
             <div className="content wrap-v2">
@@ -223,12 +280,24 @@ const PlayBar = memo(() => {
                                 changeSequence();
                             }}
                         ></button>
-                        <button className="sprite_player btn playlist">
+                        <button
+                            className="sprite_player btn playlist"
+                            onClick={(e) => {
+                                setIsShow(!isShow);
+                            }}
+                        >
                             {playList.length}
                         </button>
                     </div>
                 </Operator>
+                <ShowPlayList
+                    playList={playList}
+                    isShow={isShow}
+                    currentSongIndex={currentSongIndex}
+                    changeIsShow={changeIsShow}
+                />
             </div>
+
             {/* 
                 onTimeUpdate 是播放时间发生改变时的回调函数
             
